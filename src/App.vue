@@ -33,7 +33,7 @@
         <div class="col-sm-8 text-left" id="dropdown_users">
           <!-- <h1>Graph</h1> -->
           <!-- <img src="graph.jpg" alt="Missing graph" style="width:50%;   display: block; margin-left: auto;  margin-right: auto;"> -->
-          <line-chart-container :temp="waterTemp" :users="users"/>
+          <line-chart-container :temp="waterTemp" :users="users" :timescale="timescale"/>
 
           <div class="row justify-content-center my-auto">
             <div class="col-sm-2 text-left">
@@ -58,13 +58,13 @@
           <div class="col-sm-4 sidenav">
             <div class="well">
                 <p></p>
-                <p>Time settings</p>
+                <h3>Time settings</h3>
                 <p></p>
                 <div class="text-center">
                   <b-button-group>
-                    <b-button variant="outline-primary">Day</b-button>
-                    <b-button variant="outline-primary">Week</b-button>
-                    <b-button variant="outline-primary">Month</b-button>
+                    <b-button id="day" @click="changeTimescale" variant="outline-primary">Day</b-button>
+                    <b-button id="week" @click="changeTimescale" variant="outline-primary">Week</b-button>
+                    <b-button id="month" @click="changeTimescale" variant="outline-primary">Month</b-button>
                   </b-button-group>
                 </div>
                 <!-- <div class="slidecontainer">
@@ -82,7 +82,17 @@
             </div>
             <hr>
             <div class="well">
-              <p>Notifications</p>
+              <h3>Notifications</h3>
+              <b-card
+                header-tag="Leak"
+                header="Leak detected"
+                bg-variant="light"
+              >
+                <b-card-text>Constant usage offset detected</b-card-text>
+              </b-card>
+              <!-- <b-jumbotron lead="Constant usage offset detected">
+                <p>Possibility of leaking</p>
+              </b-jumbotron> -->
             </div>
           </div>
         </div>
@@ -107,6 +117,7 @@ export default {
 
   data() {
     return {
+      timescale: 'day',
       temp: 'all',
       users: 'all',
       userOptions: [
@@ -123,6 +134,11 @@ export default {
       ]
     }
   },
+  methods: {
+    changeTimescale: function(event){
+      this.timescale = event.currentTarget.id;
+    }
+  }
 }
 </script>
 

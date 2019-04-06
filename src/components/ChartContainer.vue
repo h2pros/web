@@ -6,11 +6,11 @@
       :options="optionsAdvanced"
       :key="componentKey"/>
 
-    <line-chart
+    <!-- <line-chart
     v-if="!advanced && loaded"
     :chartData="chartdataCumulative"
     :options="optionsCumulative"
-    :key="componentKey"/>
+    :key="componentKey"/> -->
   </b-container>
 </template>
 
@@ -19,10 +19,12 @@ import LineChart from './Chart.vue'
 import { seriesAvg, cumulativeDecrement, makeChartData } from '../js/waterStats'
 import { getAllTemps, getColdTemps, getHotTemps, totalUsage} from '../js/dataGetter'
 
-var timeSeries = ["9:00", "10:00", "11:00", "12:00",  "13:00", "14:00", "15:00"];
+var timeSeriesDay = ["6AM", "7AM", "8AM", "9AM", "10AM", "11AM", "12AM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"];
+var timeSeries = ["6AM", "7AM", "8AM", "9AM", "10AM", "11AM", "12AM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"];
 
+var timeSeriesWeek = ["Mon AM", "Mon PM", "Tues AM", "Tues PM", "Weds AM", "Weds PM", "Thurs AM", "Thurs PM", "Fri AM", "Fri PM", "Sat AM", "Sat PM", "Sun AM", "Sun PM",]
 
-var cumulativeSeries = cumulativeDecrement(totalUsage, 150);
+// var cumulativeSeries = cumulativeDecrement(totalUsage, 150);
 
 export default {
   name: 'LineChartContainer',
@@ -34,18 +36,22 @@ export default {
     users: {
       default: 'all'
     },
+    timescale: {
+      default: 'all'
+    },
   },
   data: () => ({
     componentKey: 0,
     loaded: true,
     advanced: true,
+    // timeSeries: timeSeriesDay,
     chartdataAdvanced: {
       labels: timeSeries,
-      datasets: getAllTemps()
+      datasets: getAllTemps('all', 'day')
     },
     optionsAdvanced: {maintainAspectRatio: false},
 
-    chartdataCumulative: {
+    /*chartdataCumulative: {
       labels: timeSeries,
       datasets: [
         {
@@ -55,7 +61,7 @@ export default {
         }
       ]
     },
-    optionsCumulative: {maintainAspectRatio: false},
+    optionsCumulative: {maintainAspectRatio: false},*/
   }),
   watch: {
     temp: function(newVar, oldVar){
@@ -63,26 +69,29 @@ export default {
     },
     users: function(newVar, oldVar){
       this.refreshGraph();
+    },
+    timescale: function(newVar, oldVar){
+      this.refreshGraph();
     }
-  },
-  mounted(){
-    this.refreshGraph();
   },
   methods: {
     refreshGraph: function(){
       this.componentKey += 1;
 
       if(this.temp == 'all'){
-        this.chartdataAdvanced['datasets'] = getAllTemps(this.users);
+        this.chartdataAdvanced['datasets'] = getAllTemps(this.users, this.timescale);
       }
       else if(this.temp == 'cold'){
-        this.chartdataAdvanced['datasets'] = getColdTemps(this.users);
+        this.chartdataAdvanced['datasets'] = getColdTemps(this.users, this.timescale);
       }
       else if(this.temp == 'hot'){
-        this.chartdataAdvanced['datasets'] = getHotTemps(this.users);
+        this.chartdataAdvanced['datasets'] = getHotTemps(this.users, this.timescale);
       }
       this.loaded = true
-    }
-  }
+    },
+  },
+  mounted(){
+    this.refreshGraph();
+  },
 }
 </script>
