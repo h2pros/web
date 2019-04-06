@@ -50,6 +50,9 @@ export default {
     temp: {
       default: 'all'
     },
+    users: {
+      default: 'all'
+    },
   },
   data: () => ({
     componentKey: 0,
@@ -75,19 +78,30 @@ export default {
   }),
   watch: {
     temp: function(newVar, oldVar){
+      this.refreshGraph();
+    },
+    users: function(newVar, oldVar){
+      this.refreshGraph();
+    }
+  },
+  mounted(){
+    this.refreshGraph();
+  },
+  methods: {
+    refreshGraph: function(){
       this.componentKey += 1;
 
       if(this.temp == 'all'){
-        this.chartdataAdvanced['datasets'] = getAllTemps();
+        this.chartdataAdvanced['datasets'] = getAllTemps(this.users);
       }
       else if(this.temp == 'cold'){
-        this.chartdataAdvanced['datasets'] = getColdTemps();
+        this.chartdataAdvanced['datasets'] = getColdTemps(this.users);
       }
       else if(this.temp == 'hot'){
-        this.chartdataAdvanced['datasets'] = getHotTemps();
+        this.chartdataAdvanced['datasets'] = getHotTemps(this.users);
       }
       this.loaded = true
     }
-  },
+  }
 }
 </script>

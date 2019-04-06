@@ -8,10 +8,10 @@ export default {
   mounted () {
     this.renderChart(this.chartData, this.options)
   },
-  watch: {
-    chartData: function(newVar, newOld){
-      this.$refs.chart.resetChart();
-    }
-  }
+  // watch: {
+  //   chartData: function(newVar, newOld){
+  //     this.$refs.chart.resetChart();
+  //   }
+  // }
 }
 </script>

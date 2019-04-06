@@ -39,7 +39,7 @@
             <div class="col-sm-8 text-left" id="dropdown_users">
                 <!-- <h1>Graph</h1> -->
                 <!-- <img src="graph.jpg" alt="Missing graph" style="width:50%;   display: block; margin-left: auto;  margin-right: auto;"> -->
-                <line-chart-container :temp="waterTemp"/>
+                <line-chart-container :temp="waterTemp" :users="users"/>
 
                 <div class="row justify-content-center my-auto">
                     <div class="col-sm-2 text-left">
@@ -48,7 +48,7 @@
 
                     <div class="col-sm-6 text-center my-auto">
                         <b-form-group>
-                            <b-form-radio-group v-on:change="changeTemp" v-model="waterTemp" :options="waterOptions" name="radio-inline"></b-form-radio-group>
+                            <b-form-radio-group v-model="waterTemp" :options="waterOptions" name="radio-inline"></b-form-radio-group>
                         </b-form-group>
                     </div>
                 </div>
@@ -117,11 +117,11 @@
         data() {
             return {
                 temp: 'all',
-                users: 'a',
+                users: 'all',
                 userOptions: [
-                    { value: 'a', text: 'All users' },
-                    { value: 'b', text: 'User1' },
-                    { value: 'c', text: 'User2' },
+                    { value: 'all', text: 'All users' },
+                    { value: '1', text: 'User1' },
+                    { value: '2', text: 'User2' },
                 ],
 
                 waterTemp: 'all',
