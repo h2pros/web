@@ -12,9 +12,6 @@ var totalUser2 = coldUser2.map(function (num, idx) {
   return num + hotUser2[idx];
 });
 
-var totalUsage = totalUser1.map(function (num, idx) {
-  return num + totalUser2[idx];
-});
 var totalCold = coldUser1.map(function (num, idx) {
   return num + coldUser2[idx];
 });
@@ -27,6 +24,11 @@ var greenRGB = 'rgba(5, 203, 7, 0.3)';
 var blueRGB = 'rgba(5, 150, 245, 0.6)';
 var redlineRGB = 'rgba(252, 37, 37, 0.7)';
 var bluelineRGB = 'rgba(5, 203, 225, 1)';
+
+
+export const totalUsage = totalUser1.map(function (num, idx) {
+  return num + totalUser2[idx];
+});
 
 
 export function getAllTemps(users){
