@@ -84,7 +84,6 @@
             <div class="well">
               <h3>Notifications</h3>
               <b-card
-                header-tag="Leak"
                 header="Leak detected"
                 bg-variant="light"
               >
@@ -98,9 +97,9 @@
         </div>
     </div>
 
-    <footer class="container-fluid text-center" style="    clear: both;    position: absolute;    height: 40px;    margin-top: -40px;    background-color:aquamarine">
+    <!-- <footer class="container-fluid text-center" style="    clear: both;    position: absolute;    height: 40px;    margin-top: -40px;    background-color:aquamarine">
         <p>Grundfos</p>
-    </footer>
+    </footer> -->
     </div>
 </template>
 

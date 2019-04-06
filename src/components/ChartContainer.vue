@@ -78,6 +78,8 @@ export default {
     refreshGraph: function(){
       this.componentKey += 1;
 
+      this.updateAxisLabels();
+      
       if(this.temp == 'all'){
         this.chartdataAdvanced['datasets'] = getAllTemps(this.users, this.timescale);
       }
@@ -89,6 +91,13 @@ export default {
       }
       this.loaded = true
     },
+    updateAxisLabels: function(){
+      if(this.timescale == 'day'){
+        this.chartdataAdvanced['labels'] = timeSeriesDay;
+      }else if(this.timescale == 'week'){
+        this.chartdataAdvanced['labels'] = timeSeriesWeek;
+      }
+    }
   },
   mounted(){
     this.refreshGraph();
