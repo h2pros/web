@@ -2,11 +2,15 @@ import { seriesAvg } from './waterStats'
 
 var coldUser1 = [8, 34, 0, 4, 5, 15, 9];
 var hotUser1 = [0, 10, 0, 0, 0, 5, 21];
-var totalUser1 = [8, 44, 0, 4, 5, 20, 30];
+var totalUser1 = coldUser1.map(function (num, idx) {
+  return num + hotUser1[idx];
+});
 
 var coldUser2 = [4, 10, 13, 20, 4, 3, 0];
 var hotUser2 = [0, 0, 0, 20, 13, 10, 5];
-var totalUser2 = [4, 10, 13, 40, 17, 13, 5];
+var totalUser2 = coldUser2.map(function (num, idx) {
+  return num + hotUser2[idx];
+});
 
 var totalUsage = totalUser1.map(function (num, idx) {
   return num + totalUser2[idx];
