@@ -37,9 +37,9 @@
         <div class="row content">
 
             <div class="col-sm-8 text-left" id="dropdown_users">
-                <h1>Graph</h1>
-                <img src="graph.jpg" alt="Missing graph" style="width:50%;   display: block; margin-left: auto;  margin-right: auto;">
-
+                <!-- <h1>Graph</h1> -->
+                <!-- <img src="graph.jpg" alt="Missing graph" style="width:50%;   display: block; margin-left: auto;  margin-right: auto;"> -->
+                <line-chart-container :temp="waterTemp"/>
 
                 <div class="row justify-content-center my-auto">
                     <div class="col-sm-2 text-left">
@@ -48,7 +48,7 @@
 
                     <div class="col-sm-6 text-center my-auto">
                         <b-form-group>
-                            <b-form-radio-group v-model="waterTemp" :options="waterOptions" name="radio-inline"></b-form-radio-group>
+                            <b-form-radio-group v-on:change="changeTemp" v-model="waterTemp" :options="waterOptions" name="radio-inline"></b-form-radio-group>
                         </b-form-group>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                 <p></p>
                 <p>Water used in x day by x is x</p>
                 <p>Total cost of water used in x day is x</p>
-                <p>This text field exists only because the footer hides the last one and it's easier just to create this than to try to fix that xd</p>
+                <!-- <p>This text field exists only because the footer hides the last one and it's easier just to create this than to try to fix that xd</p> -->
             </div>
 
             <div class="col-sm-4 sidenav">
@@ -66,7 +66,14 @@
                     <p></p>
                     <p>Time settings</p>
                     <p></p>
-                    <div class="slidecontainer">
+                    <div class="text-center">
+                        <b-button-group>
+                            <b-button variant="outline-primary">Day</b-button>
+                            <b-button variant="outline-primary">Week</b-button>
+                            <b-button variant="outline-primary">Month</b-button>
+                        </b-button-group>
+                    </div>
+                    <!-- <div class="slidecontainer">
                         <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
                     </div>
                     <p></p>
@@ -76,7 +83,7 @@
                         <div class="col-sm-4 text-center">
                             <b-form-input v-model="text" placeholder="Enter the date"></b-form-input>
                         </div>
-                    </div>
+                    </div> -->
                     <p></p>
                 </div>
                 <hr>
@@ -97,13 +104,19 @@
 
 <script>
 
-    import Vue from 'vue'
-    import BootstrapVue from 'bootstrap-vue'
-    Vue.use(BootstrapVue)
+    import 'bootstrap/dist/css/bootstrap.css'
+    import 'bootstrap-vue/dist/bootstrap-vue.css'
+    import LineChartContainer from './components/ChartContainer.vue'
 
     export default {
+        name: 'app',
+        components: {
+            LineChartContainer
+        },
+    
         data() {
             return {
+                temp: 'all',
                 users: 'a',
                 userOptions: [
                     { value: 'a', text: 'All users' },
@@ -111,21 +124,19 @@
                     { value: 'c', text: 'User2' },
                 ],
 
-            waterTemp: 'a',
+                waterTemp: 'all',
                 waterOptions: [
-                    { value: 'a', text: 'All water' },
-                    { value: 'b', text: 'Hot water' },
-                    { value: 'c', text: 'Cold water' },
+                    { value: 'all', text: 'All water' },
+                    { value: 'hot', text: 'Hot water' },
+                    { value: 'cold', text: 'Cold water' },
                 ]
             }
-        }
+        },
     }
 
 </script>
 
 <style>
-    import 'bootstrap/dist/css/bootstrap.css'
-    import 'bootstrap-vue/dist/bootstrap-vue.css'
 
     #app{
 
