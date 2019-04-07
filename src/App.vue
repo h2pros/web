@@ -2,7 +2,7 @@
     <div>
       <div>
         <b-navbar toggleable="lg" type="dark" variant="info">
-          <b-navbar-brand href="#">WaterGate - All drops matter</b-navbar-brand>
+          <b-navbar-brand href="#">Fodsgrund</b-navbar-brand>
 
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
