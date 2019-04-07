@@ -15,8 +15,8 @@ function getColdData(timeScale){
     ]
   }else{
     return [
-      ['66.5', '58.0', '56.0', '68.5', '64.5', '53.0', '63.5', '65.5', '68.0', '66.5', '78.5', '82.0', '64.5', '67.5', '63.5', '68.0', '71.5', '59.0', '68.0', '84.0'],
-      ['70.0', '75.0', '73.0', '65.0', '71.0', '72.5', '80.0', '71.5', '68.0', '71.5', '76.0', '90.0', '88.0', '80.0', '77.0', '80.0', '71.5', '66.0', '78.0', '75.0']
+      ['66.5', '58.0', '56.0', '68.5', '64.5', '45.0', '63.5', '65.5', '60.0', '56.5', '78.5', '82.0', '64.5', '67.5', '63.5', '68.0', '71.5', '59.0', '68.0', '84.0'],
+      ['70.0', '75.0', '73.0', '65.0', '71.0', '72.5', '85.0', '71.5', '68.0', '79.5', '76.0', '90.0', '88.0', '40.0', '77.0', '80.0', '71.5', '66.0', '78.0', '75.0']
     ]
   }
 }
@@ -35,13 +35,12 @@ function getHotData(timeScale){
   }else{
     return [
       ['71.5', '62.5', '66.5', '60.5', '67.0', '70.5', '64.5', '72.5', '69.5', '65.5', '70.0', '63.0', '73.0', '60.5', '63.5', '72.0', '69.0', '67.5', '71.5', '64.5'],
-      ['68.0', '76.5', '81.0', '80.0', '82.0', '72.5', '77.0', '83.5', '71.5', '70.0', '67.0', '67.5', '81.5', '80.5', '84.5', '85.0', '68.5', '83.5', '78.0', '73.5']
+      ['68.0', '72.5', '81.0', '80.0', '92.0', '72.5', '77.0', '83.5', '71.5', '70.0', '67.0', '67.5', '81.5', '50.5', '84.5', '85.0', '68.5', '83.5', '78.0', '73.5']
     ]
 
   }
 }
 
-// returns cold
 function getData(timescale){
   var [coldUser1, coldUser2] = getColdData(timescale)
   var [hotUser1, hotUser2] = getHotData(timescale)
@@ -51,9 +50,19 @@ function getData(timescale){
   var totalCold = coldUser1.map(function (num, idx) { return parseFloat(num) + parseFloat(coldUser2[idx]) });
   var totalHot = hotUser1.map(function (num, idx) { return parseFloat(num) + parseFloat(hotUser2[idx]) });
   var totalUsage = totalUser1.map(function (num, idx) { return parseFloat(num) + parseFloat(totalUser2[idx]) });
-  
 
   return [coldUser1, hotUser1, totalUser1, coldUser2, hotUser2, totalUser2, totalCold, totalHot, totalUsage]
+}
+
+// return user1Cost, user2Cost, total cost
+export function getCost(timescale){
+  var cost_p_litre = 5/1000;
+  var [coldUser1, hotUser1, totalUser1, coldUser2, hotUser2, totalUser2, totalCold, totalHot, totalUsage] = getData(timescale)
+  var costUser1 = cost_p_litre * totalUser1.reduce((partial_sum, a) => partial_sum + a); 
+  var costUser2 = cost_p_litre * totalUser2.reduce((partial_sum, a) => partial_sum + a);
+  // var costTotal = totalUsage.reduce((partial_sum, a) => partial_sum + a);
+
+  return [costUser1.toFixed(2), costUser2.toFixed(2), (costUser1 + costUser2).toFixed(2)]
 }
 
 // var coldUser1 = [8, 34, 0, 4, 5, 15, 9];

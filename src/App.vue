@@ -49,9 +49,11 @@
 
           <hr>
           <h3>Stats</h3>
-          <p></p>
+          <stats :timescale="timescale"/>
+          <br>
+          <!-- <p></p>
           <p>Water used in x day by x is x</p>
-          <p>Total cost of water used in x day is x</p>
+          <p>Total cost of water used in x day is x</p> -->
           <!-- <p>This text field exists only because the footer hides the last one and it's easier just to create this than to try to fix that xd</p> -->
           </div>
 
@@ -107,11 +109,13 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import LineChartContainer from './components/ChartContainer.vue'
+import Stats from './components/Stats.vue'
 
 export default {
   name: 'app',
   components: {
-    LineChartContainer
+    LineChartContainer,
+    Stats
   },
 
   data() {
